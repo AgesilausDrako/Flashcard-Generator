@@ -18,10 +18,28 @@ for (var i = 0; i < clozeEntries.length; i++) {
 	clozeQuestions.push(createdClozeCards);
 }
 
+function gameInit () {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "quizzes",
+            message: "Do you want to play Basic Cards or Cloze Cards?",
+            choices: ["Basic Cards", "Cloze Cards"]
+        }
+    ]).then(function(answers) {
+
+        console.log(answers);
+
+        if (answers.value = "Basic Cards") {
+            basicQuestion();
+        } else {
+            clozeQuestion();
+        }
+    });
+}
+
 var questionCount = 0;
-
 var correct = 0;
-
 var incorrect = 0;
 
 function basicQuestion() {
@@ -53,33 +71,33 @@ function basicQuestion() {
     });
 }
 
-basicQuestion();
-// function clozeQuestion() {
-//     inquirer.prompt([
-// 		{
-// 			type: "input",
-// 			message: clozeQuestions[questionCount].partial + "\nAnswer: ",
-// 			name: "userGuess"
-// 		}
-// 	]).then(function (answers) {
+function clozeQuestion() {
+    inquirer.prompt([
+		{
+			type: "input",
+			message: clozeQuestions[questionCount].partial + "\nAnswer: ",
+			name: "userGuess"
+		}
+	]).then(function (answers) {
 
-//             if (answers.userGuess === clozeQuestions[questionCount].cloze) {
-//                 console.log("Correct!");
-//                 correct++;
-//             } else {
-//                 console.log("Incorrect!");
-//                 incorrect++;
-//             }
+            if (answers.userGuess === clozeQuestions[questionCount].cloze) {
+                console.log("Correct!");
+                correct++;
+            } else {
+                console.log("Incorrect!");
+                incorrect++;
+            }
 
-//             console.log(clozeQuestions[questionCount].fullText);
+            console.log(clozeQuestions[questionCount].fullText);
 
-//             if (questionCount < clozeQuestions.length - 1) {
-//                 questionCount++;
-//                 clozeQuestion();
-//             } else {
-//                 console.log("Correct: " + correct);
-//                 console.log("Incorrect: " + incorrect);
-//             }
-//     });
-// }
-// clozeQuestion();
+            if (questionCount < clozeQuestions.length - 1) {
+                questionCount++;
+                clozeQuestion();
+            } else {
+                console.log("Correct: " + correct);
+                console.log("Incorrect: " + incorrect);
+            }
+    });
+}
+
+gameInit();
