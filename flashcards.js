@@ -8,16 +8,6 @@ var basicEntries = require("./basicEntries").entries;
 var basicQuestions = [];
 var clozeQuestions = [];
 
-for (var i = 0; i < basicEntries.length; i++) {
-	var createdBasicCards = new BasicCard(basicEntries[i].front, basicEntries[i].back);
-	basicQuestions.push(createdBasicCards);
-}
-
-for (var i = 0; i < clozeEntries.length; i++) {
-	var createdClozeCards = new ClozeCard(clozeEntries[i].text, clozeEntries[i].cloze);
-	clozeQuestions.push(createdClozeCards);
-}
-
 function gameInit () {
     inquirer.prompt([
         {
@@ -28,11 +18,19 @@ function gameInit () {
         }
     ]).then(function(answers) {
 
-        console.log(answers);
+        console.log(JSON.stringify(answers, null, '  '));
 
-        if (answers.value = "Basic Cards") {
+        if ("Basic Cards") {
+            for (var i = 0; i < basicEntries.length; i++) {
+                var createdBasicCards = new BasicCard(basicEntries[i].front, basicEntries[i].back);
+                basicQuestions.push(createdBasicCards);
+            }
             basicQuestion();
         } else {
+            for (var i = 0; i < clozeEntries.length; i++) {
+                var createdClozeCards = new ClozeCard(clozeEntries[i].text, clozeEntries[i].cloze);
+                clozeQuestions.push(createdClozeCards);
+            }
             clozeQuestion();
         }
     });
