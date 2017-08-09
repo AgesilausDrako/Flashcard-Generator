@@ -71,7 +71,7 @@ function basicQuestion() {
             }
 
             // Reveals correct answer
-            console.log(basicQuestionsArray[questionCount].back);
+            console.log("The correct answer is:\n" + basicQuestionsArray[questionCount].back);
 
             // Checks the question count against the question list
             // If questions remain the function is called to continue
@@ -106,7 +106,7 @@ function clozeQuestion() {
             }
 
             // Reveals correct answer
-            console.log(clozeQuestionsArray[questionCount].fullText);
+            console.log("The correct answer is:\n" + clozeQuestionsArray[questionCount].fullText);
 
             // Checks the question count against the question list
             // If questions remain the function is called to continue

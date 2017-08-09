@@ -8,8 +8,7 @@ function ClozeCard(text, cloze) {
     this.partial = text.split(cloze).join(". . .");
     this.cloze = cloze;
     this.fullText = text;
-
-    
+  
 }
 
 module.exports = ClozeCard;
