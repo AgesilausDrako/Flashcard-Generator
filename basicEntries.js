@@ -1,4 +1,4 @@
-exports.entries = [
+exports.questions = [
     {
         front: "Who was the last tsar of Russia?",
         back: "Nicholas II"

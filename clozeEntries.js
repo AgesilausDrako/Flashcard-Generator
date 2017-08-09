@@ -1,4 +1,4 @@
-exports.entries = [
+exports.questions = [
     {
         text: "Nicholas II was the last tsar of Russia.",
         cloze: "Nicholas II"

@@ -1,13 +1,24 @@
+// Variable for inquirer dependency
 var inquirer = require("inquirer");
+
+// Variables for external constructor functions
 var BasicCard = require("./BasicCard.js");
 var ClozeCard = require("./ClozeCard.js");
 
-var clozeEntries = require("./clozeEntries").entries;
-var basicEntries = require("./basicEntries").entries;
+// Variables for external files with questions
+var clozeEntries = require("./clozeEntries").questions;
+var basicEntries = require("./basicEntries").questions;
 
-var basicQuestions = [];
-var clozeQuestions = [];
+// Variables for arrays to hold the constructed objects
+var basicQuestionsArray = [];
+var clozeQuestionsArray = [];
 
+// Variable to track the question count, correct, and incorrect guesses
+var questionCount = 0;
+var correct = 0;
+var incorrect = 0;
+
+// Function which gives the user the game options
 function gameInit () {
     inquirer.prompt([
         {
@@ -18,38 +29,40 @@ function gameInit () {
         }
     ]).then(function(answers) {
 
-        console.log(JSON.stringify(answers, null, '  '));
-
-        if ("Basic Cards") {
+        // If the user chooses Basic Cards the loop iterates through the basicEntries file 
+        //creating constructed objects
+        if (answers.quizzes === "Basic Cards") {
             for (var i = 0; i < basicEntries.length; i++) {
                 var createdBasicCards = new BasicCard(basicEntries[i].front, basicEntries[i].back);
-                basicQuestions.push(createdBasicCards);
+                basicQuestionsArray.push(createdBasicCards);
             }
+            // Call the function to run the basic questions
             basicQuestion();
         } else {
+            // The loop iterates through the clozeEntries file creating constructed objects
             for (var i = 0; i < clozeEntries.length; i++) {
                 var createdClozeCards = new ClozeCard(clozeEntries[i].text, clozeEntries[i].cloze);
-                clozeQuestions.push(createdClozeCards);
+                clozeQuestionsArray.push(createdClozeCards);
             }
+            // Call the function to run the cloze questions
             clozeQuestion();
         }
     });
 }
 
-var questionCount = 0;
-var correct = 0;
-var incorrect = 0;
 
+// Shows the question part of the card and prompts an answer
 function basicQuestion() {
     inquirer.prompt([
 		{
 			type: "input",
-			message: basicQuestions[questionCount].front + "\nAnswer: ",
+			message: basicQuestionsArray[questionCount].front + "\nAnswer: ",
 			name: "userGuess"
 		}
 	]).then(function (answers) {
-
-            if (answers.userGuess === basicQuestions[questionCount].back) {
+            // Checks the guess against the answer part of the card and logs the result 
+            //while updating correct or incorrect count
+            if (answers.userGuess === basicQuestionsArray[questionCount].back) {
                 console.log("Correct!");
                 correct++;
             } else {
@@ -57,9 +70,13 @@ function basicQuestion() {
                 incorrect++;
             }
 
-            console.log(basicQuestions[questionCount].back);
+            // Reveals correct answer
+            console.log(basicQuestionsArray[questionCount].back);
 
-            if (questionCount < basicQuestions.length - 1) {
+            // Checks the question count against the question list
+            // If questions remain the function is called to continue
+            // Else the game ends and the results are logged out
+            if (questionCount < basicQuestionsArray.length - 1) {
                 questionCount++;
                 basicQuestion();
             } else {
@@ -69,16 +86,18 @@ function basicQuestion() {
     });
 }
 
+// Shows the sentence with the cloze part absent and prompts an answer
 function clozeQuestion() {
     inquirer.prompt([
 		{
 			type: "input",
-			message: clozeQuestions[questionCount].partial + "\nAnswer: ",
+			message: clozeQuestionsArray[questionCount].partial + "\nAnswer: ",
 			name: "userGuess"
 		}
 	]).then(function (answers) {
-
-            if (answers.userGuess === clozeQuestions[questionCount].cloze) {
+            // Checks the guess against the answer part of the card and logs the result 
+            //while updating correct or incorrect count
+            if (answers.userGuess === clozeQuestionsArray[questionCount].cloze) {
                 console.log("Correct!");
                 correct++;
             } else {
@@ -86,9 +105,13 @@ function clozeQuestion() {
                 incorrect++;
             }
 
-            console.log(clozeQuestions[questionCount].fullText);
+            // Reveals correct answer
+            console.log(clozeQuestionsArray[questionCount].fullText);
 
-            if (questionCount < clozeQuestions.length - 1) {
+            // Checks the question count against the question list
+            // If questions remain the function is called to continue
+            // Else the game ends and the results are logged out
+            if (questionCount < clozeQuestionsArray.length - 1) {
                 questionCount++;
                 clozeQuestion();
             } else {
@@ -98,4 +121,5 @@ function clozeQuestion() {
     });
 }
 
+// Function is called which begins the game
 gameInit();
