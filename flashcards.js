@@ -40,8 +40,8 @@ function gameInit () {
             basicQuestion();
         } else {
             // The loop iterates through the clozeEntries file creating constructed objects
-            for (var i = 0; i < clozeEntries.length; i++) {
-                var createdClozeCards = new ClozeCard(clozeEntries[i].text, clozeEntries[i].cloze);
+            for (var j = 0; j < clozeEntries.length; j++) {
+                var createdClozeCards = new ClozeCard(clozeEntries[j].text, clozeEntries[j].cloze);
                 clozeQuestionsArray.push(createdClozeCards);
             }
             // Call the function to run the cloze questions
