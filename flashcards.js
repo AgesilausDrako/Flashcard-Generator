@@ -1,6 +1,5 @@
 // Variable for inquirer dependency
 var inquirer = require("inquirer");
-var fs = require("fs");
 
 // Variables for external constructor functions
 var BasicCard = require("./BasicCard.js");
