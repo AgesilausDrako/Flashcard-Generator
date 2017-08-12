@@ -68,7 +68,7 @@ function gameInit () {
         {
             type: "list",
             name: "quizzes",
-            message: "Do you want to play Basic Cards or Cloze Cards?",
+            message: "What would you like to do?",
             choices: ["Create Basic Card", "Create Cloze Card", "Play Basic Cards", "Play Cloze Cards"]
         }
     ]).then(function(answers) {
