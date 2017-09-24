@@ -1,7 +1,7 @@
 # Flashcard-Generator
 
 ## Description
-FlashCard-Generator is a backend application, utilizing node.js and inquirer, an npm package, to make study flashcards. The user can 
+FlashCard-Generator is a backend application, utilizing node.js and inquirer, an npm package, to make study flashcards. The user can play the preset card games or create custom cards and then play them.
 
 ## Important Details
 This application requires a certain the inquirer npm package in order to run.
